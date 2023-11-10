@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Josefin_Sans } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "./globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
-const josefin_Sans = Josefin_Sans({ subsets: ["latin"] });
+const kanit = Kanit({ weight: "300", subsets: ["thai"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={josefin_Sans.className}>{children}</body>
+      <body className={kanit.className}>{children}</body>
     </html>
   );
 }
