@@ -37,7 +37,7 @@ const InputWithLabel = ({
           "flex flex-row py-2 rounded-full bg-gray-600 px-4 items-center gap-2" +
           (error ? " border-2 border-red-700" : "")
         }
-      >
+      > 
         <input
           className="bg-gray-600 outline-none w-full border-0 focus:outline-none p-0 border-transparent focus:border-transparent focus:ring-0"
           type={obsure && hidden ? "password" : "text"}
