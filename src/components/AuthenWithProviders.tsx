@@ -2,13 +2,11 @@ import { Dispatch, SetStateAction, useState } from "react";
 import SignInWithProvider from "./SigninWithProvider";
 
 const AuthenWithProviders = ({
-  processing,
-  setProcessing,
+  setSigningInWithProvider,
   setError,
   disabled,
 }: {
-  processing: boolean;
-  setProcessing: Dispatch<SetStateAction<boolean>>;
+  setSigningInWithProvider: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<string>>;
   disabled?: boolean;
 }) => {
@@ -16,15 +14,15 @@ const AuthenWithProviders = ({
     <div className="flex flex-row gap-3">
       <SignInWithProvider
         provider="facebook"
-        processing={processing}
-        setProcessing={setProcessing}
+        setSigningInWithProvider={setSigningInWithProvider}
         setError={setError}
+        disabled={disabled}
       />
       <SignInWithProvider
         provider="google"
-        processing={processing}
-        setProcessing={setProcessing}
+        setSigningInWithProvider={setSigningInWithProvider}
         setError={setError}
+        disabled={disabled}
       />
     </div>
   );
