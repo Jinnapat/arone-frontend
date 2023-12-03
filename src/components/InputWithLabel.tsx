@@ -8,12 +8,14 @@ const InputWithLabel = ({
   handler,
   error,
   obsure,
+  disabled,
 }: {
   labelText: string;
   hintText: string;
   handler: Dispatch<SetStateAction<string>>;
   obsure: boolean;
   error: boolean;
+  disabled?: boolean;
 }) => {
   const [hidden, setHidden] = useState<Boolean>(true);
 
@@ -35,10 +37,11 @@ const InputWithLabel = ({
         }`}
       >
         <input
-          className="bg-gray-600 outline-none w-full border-0 focus:outline-none p-0 border-transparent focus:border-transparent focus:ring-0"
+          className="bg-gray-600 outline-none w-full border-0 focus:outline-none p-0 border-transparent focus:border-transparent focus:ring-0 disabled:text-gray-200"
           type={obsure && hidden ? "password" : "text"}
           onChange={changeHandler}
           placeholder={hintText}
+          disabled={disabled}
         />
         {obsure && (
           <button className="w-12">
