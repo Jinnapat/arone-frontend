@@ -93,11 +93,7 @@ const RegisterPage = () => {
         />
         <br></br>
         <br></br>
-        <MainButton
-          handler={signUp}
-          enable={valid && !isProcessing}
-          loading={isSigningUp}
-        >
+        <MainButton handler={signUp} disabled={!valid} loading={isSigningUp}>
           <b>SIGN UP</b>
         </MainButton>
         <OrWithSeparator />
