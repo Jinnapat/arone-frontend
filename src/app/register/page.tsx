@@ -6,10 +6,10 @@ import MainButton from "@/components/MainButton";
 import OrWithSeparator from "@/components/OrWithSeparator";
 import emailValidator from "@/helpers/emailValidator";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import supabase from "@/supabase/client";
+import PopupWithImage from "@/components/PopupWithImage";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -103,25 +103,14 @@ const RegisterPage = () => {
           </Link>
         </div>
       </div>
-      <div
-        className={`absolute bg-gray-900 border-2 border-green-400 max-w-md p-7 rounded-xl flex flex-col gap-4 top-28 mx-5 left-auto right-auto items-center ${
-          isDone ? "" : "hidden"
-        }`}
-      >
-        <Image src="/icon/message.png" width={150} height={150} alt="verify" />
-        <h1 className="text-xl font-bold">Verify your email</h1>
-        <p>
-          We need to verify your email. We&lsquo;ve already sent out the
-          verification link to {email}. Please check it and confirm it&lsquo;s
-          really you.
-        </p>
-        <Link
-          href="/signin"
-          className="rounded-lg border-2 p-4 hover:bg-green-400 transition-colors duration-300"
-        >
-          back to login
-        </Link>
-      </div>
+      <PopupWithImage
+        show={isDone}
+        imageSrc="/icon/message.png"
+        headerText="Verify your email"
+        message={`We need to verify your email. We&lsquo;ve already sent out the verification link to ${email}. Please check it and confirm it's really you.`}
+        redirectTo="/signin"
+        actionText="back to login"
+      />
     </div>
   );
 };
