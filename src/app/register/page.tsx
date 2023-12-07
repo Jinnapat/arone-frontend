@@ -8,9 +8,8 @@ import emailValidator from "@/helpers/emailValidator";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import supabase from "@/supabase/client";
-import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -21,20 +20,12 @@ const RegisterPage = () => {
   const [isSigningUp, setIsSigningUp] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const router = useRouter();
 
   const validEmail = emailValidator(email);
   const validPassword = password !== "";
   const validRepassword = repassword !== "" && password === repassword;
   const valid = validEmail && validRepassword && validRepassword;
   const isProcessing = isSigningUp || signingInWithProvider || isDone;
-
-  useEffect(() => {
-    supabase.auth.getSession().then((result) => {
-      if (result.error) setError(result.error.message);
-      if (result.data.session) router.push("/home");
-    });
-  }, [router]);
 
   const signUp = async () => {
     setError("");
