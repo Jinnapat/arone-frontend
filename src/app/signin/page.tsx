@@ -86,7 +86,7 @@ const SignInPage = () => {
             <p className="text-sm">remember me</p>
           </div>
           <Link
-            href="reset_password"
+            href="forget_password"
             className="text-sm hover:text-green-400 transition-colors duration-300"
           >
             forget password?
