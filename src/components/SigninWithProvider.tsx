@@ -4,50 +4,50 @@ import Image from "next/image";
 import supabase from "@/supabase/client";
 
 const SignInWithProvider = ({
-  processing,
-  setProcessing,
+  setSigningInWithProvider,
   provider,
   setError,
+  disabled,
 }: {
-  processing: boolean;
-  setProcessing: Dispatch<SetStateAction<boolean>>;
+  setSigningInWithProvider: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<string>>;
   provider: "facebook" | "google";
+  disabled?: boolean;
 }) => {
-  const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
+  const [isProcessing, setIsProcess] = useState<boolean>(false);
 
   const signInWithProviders = async (provider: "facebook" | "google") => {
     setError("");
-    setProcessing(true);
-    setIsSigningIn(true);
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: provider,
-      options:
-        provider == "facebook"
-          ? {
-              redirectTo: "/home",
-            }
-          : {
-              queryParams: {
-                access_type: "offline",
-                prompt: "consent",
-              },
-            },
-    });
-    console.log(data);
-    console.log(error);
-    setProcessing(false);
-    setIsSigningIn(false);
-    // if (error) {
-    //   setError(error.message);
-    // }
+    setSigningInWithProvider(true);
+    setIsProcess(true);
+    try {
+      const signInResult = await supabase.auth.signInWithOAuth({
+        provider: provider,
+        options: {
+          redirectTo: "http://localhost:3000/home",
+          queryParams:
+            provider == "google"
+              ? {
+                  access_type: "offline",
+                  prompt: "consent",
+                }
+              : undefined,
+        },
+      });
+      if (signInResult.error) setError(signInResult.error.message);
+    } catch (error) {
+      setError("Unexpected error occurred");
+    } finally {
+      setSigningInWithProvider(false);
+      setIsProcess(false);
+    }
   };
 
   return (
     <MainButton
       handler={() => signInWithProviders(provider)}
-      loading={isSigningIn}
-      enable={!processing}
+      loading={isProcessing}
+      disabled={isProcessing || disabled}
     >
       <div className="flex flex-row items-center gap-2 justify-center">
         <Image
@@ -57,7 +57,7 @@ const SignInWithProvider = ({
           className="w-auto"
           alt={provider + " icon"}
         />
-        <p>{provider[0].toUpperCase() + provider.slice(1)}</p>
+        <p>{provider == "facebook" ? "Facebook" : "Google"}</p>
       </div>
     </MainButton>
   );

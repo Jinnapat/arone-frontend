@@ -13,8 +13,8 @@ const InputWithLabel = ({
   labelText: string;
   hintText: string;
   handler: Dispatch<SetStateAction<string>>;
-  obsure: boolean;
-  error: boolean;
+  obsure?: boolean;
+  error?: boolean;
   disabled?: boolean;
 }) => {
   const [hidden, setHidden] = useState<Boolean>(true);
