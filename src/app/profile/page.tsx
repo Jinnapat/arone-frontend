@@ -121,7 +121,7 @@ const ProfilePage = () => {
     setUserInfo({
       id: updateResult.data[0].id,
       username: updateResult.data[0].username,
-      email: updateResult.data[0].email ? updateResult.data[0].email : "",
+      email: user.email ? user.email : "",
     });
     setIsProcessing(false);
     setIsEditMode(false);
@@ -139,7 +139,7 @@ const ProfilePage = () => {
             </p>
             <HorizontalLine />
             <InfoSlot
-              title="First Name"
+              title="Username"
               currentValue={userInfo.username}
               value={username}
               setValue={setUsername}
