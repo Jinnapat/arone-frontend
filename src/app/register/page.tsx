@@ -11,8 +11,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const RegisterPage = () => {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [repassword, setRepassword] = useState<string>("");
@@ -21,17 +20,11 @@ const RegisterPage = () => {
   const [isDone, setIsDone] = useState<boolean>(false);
 
   const locked = isProcessing || isDone;
-  const validFirstName = firstName != "";
-  const validLastName = lastName != "";
+  const validUsername = username != "";
   const validEmail = validateEmail(email);
   const validPassword = password.length >= 6;
   const validRepassword = repassword.length >= 6 && password === repassword;
-  const valid =
-    validFirstName &&
-    validLastName &&
-    validEmail &&
-    validPassword &&
-    validRepassword;
+  const valid = validUsername && validEmail && validPassword && validRepassword;
 
   const register = async () => {
     setIsProcessing(true);
@@ -41,7 +34,7 @@ const RegisterPage = () => {
         email,
         password,
         options: {
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/email_confirmed?first_name=${firstName}&last_name=${lastName}&email=${email}`,
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/email_confirmed?username=${username}`,
         },
       });
       if (signUpResult.error) {
@@ -65,17 +58,10 @@ const RegisterPage = () => {
         </div>
         <HorizontalLine />
         <InputWithLabel
-          handler={setFirstName}
-          labelText="First Name"
-          hintText="enter your first name"
-          error={!validFirstName}
-          disabled={locked}
-        />
-        <InputWithLabel
-          handler={setLastName}
-          labelText="Last Name"
-          hintText="enter your last name"
-          error={!validLastName}
+          handler={setUsername}
+          labelText="Username"
+          hintText="enter your username"
+          error={!validUsername}
           disabled={locked}
         />
         <InputWithLabel

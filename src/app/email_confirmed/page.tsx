@@ -18,9 +18,7 @@ const EmailConfirmedPage = () => {
 
   useEffect(() => {
     if (effectCalled.current) return;
-    const firstName = searchParams.get("first_name");
-    const lastName = searchParams.get("last_name");
-    const email = searchParams.get("email");
+    const username = searchParams.get("username");
     supabaseClient.auth.getUser().then((response) => {
       if (response.error) {
         setIsError(true);
@@ -30,9 +28,7 @@ const EmailConfirmedPage = () => {
         .from("accounts")
         .insert({
           id: response.data.user.id,
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
+          username,
         })
         .then((addUserInfoResult) => {
           if (addUserInfoResult.error) {
